@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml-fragment>
+  <roots>
+    <root>
+      <field-name>clojure.lang.Keyword.table</field-name>
+    </root>
+  </roots>
+  <locks>
+    <autolock>
+      <method-expression>* clojure.lang..*.*(..)</method-expression>
+      <lock-level>write</lock-level>
+    </autolock>
+  </locks>
+  <additional-boot-jar-classes>
+    <include>java.util.UUID</include>
+  </additional-boot-jar-classes>
+  <instrumented-classes>
+    <include>
+      <class-expression>clojure.lang.*</class-expression>
+    </include>
+  </instrumented-classes>
+</xml-fragment>
