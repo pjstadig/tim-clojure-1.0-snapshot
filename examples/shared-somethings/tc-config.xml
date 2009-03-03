@@ -37,36 +37,25 @@
         <root>
           <field-name>stadigtech.terraclojure.Root.count</field-name>
         </root>
+        <root>
+          <field-name>clojure.lang.Keyword.table</field-name>
+        </root>
       </roots>
+      <locks>
+        <autolock>
+          <method-expression>* clojure.lang..*.*(..)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+      </locks>
+      <additional-boot-jar-classes>
+        <include>java.util.UUID</include>
+      </additional-boot-jar-classes>
+      <instrumented-classes>
+        <include>
+          <class-expression>clojure.lang.*</class-expression>
+        </include>
+      </instrumented-classes>
     </dso>
   </application>
 
-  <!--Tell DSO where to put the generated client logs
-  See the Terracotta Configuration Guide and Reference for additional
-  information.-->
-  <clients>
-    <!--
-
-      Terracotta Integration Modules (TIM) allow sets of configuration elements to
-      be packaged together as a single, includable module within the Terracotta
-      configuration.
-
-      The catalog of available configuration modules will grow as new technologies
-      are integrated with Terracotta. Community-developed configuration modules are
-      also welcome and may be featured in the Forge.
-
-      The <modules/> configuration below shows how to use a TIM as well as specify
-      additional locations where TIM's may be found.
-
-      For more information visit: http://terracotta.org/confluence/display/integrations/Home
-
-    -->
-    <modules>
-      <repository>%(user.home)/.m2/repository</repository>
-      <module name="tim-clojure-1.0-SNAPSHOT"
-              version="1.0-SNAPSHOT"
-              group-id="stadigtech.clojure.terracotta" />
-    </modules>
-    <logs>%(user.home)/terracotta/client-logs/org.terracotta.modules.sample/%D</logs>
-  </clients>
 </tc:tc-config>

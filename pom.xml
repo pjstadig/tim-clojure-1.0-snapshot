@@ -10,6 +10,7 @@
   <properties>
     <forgeTags>Integration Module</forgeTags>
     <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
+    <Bundle-Copyright>Copyright (c) 2009 Stadig Technologies, LLC</Bundle-Copyright>
   </properties>
 
   <modelVersion>4.0.0</modelVersion>
@@ -27,6 +28,19 @@
   <description>
     A Terracotta Integration Module for the Clojure language.
   </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure-lang</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.terracotta</groupId>
+      <artifactId>terracotta</artifactId>
+      <version>2.7.3</version>
+    </dependency>
+  </dependencies>
 
   <scm>
     <connection>scm:git:git://github.com/pjstadig/tim-clojure-1.0-snapshot.git</connection>
@@ -54,6 +68,15 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.terracotta.maven.plugins</groupId>
+        <artifactId>tc-maven-plugin</artifactId>
+        <configuration>
+          <bundleCopyright>Copyright (c) 2009 Stadig Technologies, LLC</bundleCopyright>
+          <bundleActivator>stadigtech.clojure.terracotta.clojure_1_0_SNAPSHOT.ClojureTerracottaConfigurator</bundleActivator>
+          <importPackage>org.terracotta.modules.configuration</importPackage>
+        </configuration>
       </plugin>
     </plugins>
   </build>

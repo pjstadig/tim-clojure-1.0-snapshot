@@ -4,19 +4,103 @@
     <root>
       <field-name>clojure.lang.Keyword.table</field-name>
     </root>
+    <root>
+      <field-name>clojure.lang.Namespace.namespaces</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentHashMap.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentArrayMap.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentHashSet.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentQueue.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentTreeMap.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentTreeSet.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentVector.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.PersistentList.EMPTY</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.RT.INITIALIZED</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.RT.T</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.RT.F</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.RT.id</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.Var.NOT_BOUND</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.DynamicClassLoader.map</field-name>
+    </root>
+    <!--root>
+      <field-name>clojure.lang.DynamicClassLoader.constantVals</field-name>
+    </root-->
   </roots>
+  <transient-fields>
+    <field-name>clojure.lang.RT.IN</field-name>
+    <field-name>clojure.lang.RT.OUT</field-name>
+    <field-name>clojure.lang.RT.ERR</field-name>
+    <field-name>clojure.lang.TransientVar.root</field-name>
+  </transient-fields>
   <locks>
     <autolock>
-      <method-expression>* clojure.lang..*.*(..)</method-expression>
+      <method-expression>* clojure..*.*(..)</method-expression>
+      <lock-level>write</lock-level>
+    </autolock>
+    <autolock auto-synchronized="true">
+      <method-expression>* clojure.lang.APersistentVector.hashCode(..)</method-expression>
+      <lock-level>write</lock-level>
+    </autolock>
+    <autolock auto-synchronized="true">
+      <method-expression>* clojure.lang.APersistentSet.hashCode(..)</method-expression>
+      <lock-level>write</lock-level>
+    </autolock>
+    <autolock auto-synchronized="true">
+      <method-expression>* clojure.lang.APersistentMap.hashCode(..)</method-expression>
       <lock-level>write</lock-level>
     </autolock>
   </locks>
   <additional-boot-jar-classes>
     <include>java.util.UUID</include>
+    <include>java.nio.charset.Charset</include>
+    <include>java.io.Writer</include>
+    <include>java.io.OutputStreamWriter</include>
+    <include>java.io.FilterOutputStream</include>
+    <include>java.io.OutputStream</include>
+    <include>java.io.PrintStream</include>
+    <include>java.nio.ByteBuffer</include>
+    <include>java.nio.Buffer</include>
+    <include>java.nio.HeapByteBuffer</include>
+    <include>java.nio.charset.CharsetEncoder</include>
+    <include>sun.nio.cs.Unicode</include>
+    <include>sun.nio.cs.UTF_8</include>
+    <include>sun.nio.cs.StreamEncoder</include>
+    <include>sun.nio.cs.UTF_8$Encoder</include>
+    <include>org.xml.sax.helpers.DefaultHandler</include>
   </additional-boot-jar-classes>
   <instrumented-classes>
     <include>
-      <class-expression>clojure.lang.*</class-expression>
+      <class-expression>clojure..*</class-expression>
+    </include>
+    <include>
+      <class-expression>user..*</class-expression>
     </include>
   </instrumented-classes>
 </xml-fragment>

@@ -12,4 +12,4 @@ Clojure code is copyright Rich Hickey.
  *    the terms of this license.
  *   You must not remove this notice, or any other, from this software.
 
-Modifications to the Clojure code are copyright Paul Stadig, and released under the same license as Clojure.
+Modifications are copyright Paul Stadig, and released under the same license.

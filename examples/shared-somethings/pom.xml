@@ -19,11 +19,11 @@
 
   <packaging>jar</packaging>
   <groupId>stadigtech.clojure.terracotta</groupId>
-  <artifactId>terraclojure</artifactId>
+  <artifactId>shared-somethings</artifactId>
   <version>1.0.0</version>
-  <name>tim-clojure-1.0-SNAPSHOT sample application</name>
+  <name>Clojure+Terracotta shared-somethings sample application</name>
   <description>
-    Sample application that demonstrates the usage of the tim-clojure-1.0-SNAPSHOT TIM.
+    Sample application that demonstrates the "shared somethings" usage of the tim-clojure-1.0-SNAPSHOT TIM.
   </description>
 
   <dependencies>

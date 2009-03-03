@@ -1,5 +1,7 @@
 This is an example of using Terracotta Integration Module for the Clojure language.  The TIM for Clojure is currently in an alpha state, so should be used at your own risk.
 
+This is the "shared somethings" example.  This will show you how to share only the things you explicitly want to share using Terracotta.  This is not the current direction of development, and this may not even be a complete example, but it will give you the general direction if you wish to pursue it.
+
 How to run this example
 =======================
 (NOTE: The following instructions have only been tested on Linux.  The scripts are bash scripts, so Windows is out.  This is nothing personal, I just don't use Windows.)
