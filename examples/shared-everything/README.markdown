@@ -2,7 +2,7 @@ This is an example of using Terracotta Integration Module for the Clojure langua
 
 This is the "shared everything" example of using Clojure with Terracotta.  The goal is to have multiple VMs working together in the same shared, global context through Terracotta.  This means that everything in the Clojure environment should be shared by default.  I have worked out the class replacement for a TIM, and I have created a few replacement classes so that Clojure will play nicely with Terracotta.  There are still some issues:
 
-1. A roadblock at the moment is the root bindings for *in*, *out* and *err*.  They cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually (hence the 'hello-repl.clj' file).
+1. A roadblock at the moment is the root bindings for *in*, *out* and *err*.  They cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually (hence the 'repl.clj' file).
 
 2. I am not able to connect more than one JVM to Terracotta, nor can I disconnect and reconnect the same JVM.  This is because Clojure dynamically creates classes for each fn that it compiles, but I haven't worked out a way to store those files in Terracotta.  Reconnecting will pull out the compiled functions, but Terracotta can't find the corresponding classes.
 
@@ -17,7 +17,7 @@ How to run this example
 
 3. Start the Terracotta server.  From this directory type "mvn tc:start".
 
-4. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type "./bin/dso-clojure hello-repl.clj".
+4. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type "./bin/dso-clojure repl.clj".
 
 Once in the REPL, you can do anything you would normally do in a Clojure REPL, and you should see objects being modified in the Terracotta cache (type "mvn tc:admin" from this directory to start the Terracotta admin application).
 
