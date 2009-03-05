@@ -26,14 +26,6 @@
     Sample application that demonstrates the "shared somethings" usage of the tim-clojure-1.0-SNAPSHOT TIM.
   </description>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>clojure-lang</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>

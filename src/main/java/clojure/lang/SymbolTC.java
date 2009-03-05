@@ -73,9 +73,16 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 		Symbol symbol = (Symbol) o;
 
 		// identity compares intended, names are interned
-		return name.equals(symbol.name)
-				&& ((ns == null && ns == null) || (ns != null && ns
-						.equals(symbol.ns)));
+		if (name == symbol.name && ns == symbol.ns)
+			return true;
+
+		if ((name != null && symbol.name != null && name.intern() != symbol.name
+				.intern())
+				|| (ns != null && symbol.name != null && ns.intern() != symbol.ns
+						.intern()))
+			return false;
+
+		return true;
 	}
 
 	public int hashCode() {

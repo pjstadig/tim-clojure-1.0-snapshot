@@ -26,5 +26,9 @@ public class ClojureTerracottaConfigurator extends TerracottaConfiguratorModule 
 		addClassReplacement(bundle, "clojure.lang.RT$6", "clojure.lang.RTTC$6");
 		addClassReplacement(bundle, "clojure.lang.RT$7", "clojure.lang.RTTC$7");
 		addClassReplacement(bundle, "clojure.lang.Symbol", "clojure.lang.SymbolTC");
+		addClassReplacement(bundle, "clojure.lang.DynamicClassLoader", "clojure.lang.DynamicClassLoaderTC");
+		addClassReplacement(bundle, "clojure.lang.Reflector", "clojure.lang.ReflectorTC");
+		addClassReplacement(bundle, "clojure.lang.ProxyHandler", "clojure.lang.ProxyHandlerTC");
+		addClassReplacement(bundle, "clojure.asm.ClassReader", "clojure.asm.ClassReaderTC");
 	}
 }

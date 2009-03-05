@@ -26,7 +26,7 @@ public class VarTC extends ARef implements IFn, IRef, Settable {
 	static Keyword privateKey = Keyword.intern(null, "private");
 
 	static IPersistentMap privateMeta = new PersistentArrayMap(new Object[] {
-			privateKey, Boolean.TRUE });
+			privateKey, RT.T });
 
 	static Keyword macroKey = Keyword.intern(null, "macro");
 

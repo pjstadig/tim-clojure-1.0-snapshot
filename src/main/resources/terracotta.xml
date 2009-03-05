@@ -35,13 +35,13 @@
       <field-name>clojure.lang.RT.INITIALIZED</field-name>
     </root>
     <root>
+      <field-name>clojure.lang.RT.id</field-name>
+    </root>
+    <root>
       <field-name>clojure.lang.RT.T</field-name>
     </root>
     <root>
       <field-name>clojure.lang.RT.F</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.RT.id</field-name>
     </root>
     <root>
       <field-name>clojure.lang.Var.NOT_BOUND</field-name>
@@ -53,12 +53,6 @@
       <field-name>clojure.lang.DynamicClassLoader.constantVals</field-name>
     </root-->
   </roots>
-  <transient-fields>
-    <field-name>clojure.lang.RT.IN</field-name>
-    <field-name>clojure.lang.RT.OUT</field-name>
-    <field-name>clojure.lang.RT.ERR</field-name>
-    <field-name>clojure.lang.TransientVar.root</field-name>
-  </transient-fields>
   <locks>
     <autolock>
       <method-expression>* clojure..*.*(..)</method-expression>

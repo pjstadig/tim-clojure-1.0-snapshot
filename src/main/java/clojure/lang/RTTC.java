@@ -234,7 +234,7 @@ public class RTTC {
 	static Keyword FILE_KEY = Keyword.intern(null, "file");
 
 	final static public Var USE_CONTEXT_CLASSLOADER = Var.intern(CLOJURE_NS,
-			Symbol.create("*use-context-classloader*"), T, false);
+			Symbol.create("*use-context-classloader*"), null, false);
 
 	// final static public Var CURRENT_MODULE =
 	// Var.intern(Symbol.create("clojure.core", "current-module"),
@@ -276,8 +276,7 @@ public class RTTC {
 	final static Var IN_NS_VAR = Var.intern(CLOJURE_NS, Symbol.create("in-ns"),
 			F, false);
 
-	final static Var NS_VAR = Var.intern(CLOJURE_NS, Symbol.create("ns"), F,
-			false);
+	final static Var NS_VAR = Var.intern(CLOJURE_NS, Symbol.create("ns"), F, false);
 
 	static final Var PRINT_INITIALIZED = Var.intern(CLOJURE_NS, Symbol
 			.create("print-initialized"));
@@ -436,8 +435,8 @@ public class RTTC {
 	}
 
 	static void doInit() throws Exception {
-		//synchronized (INITIALIZED) {
-			//if (!((Boolean) INITIALIZED.val).booleanValue()) {
+		synchronized (INITIALIZED) {
+			if (!((Boolean) INITIALIZED.val).booleanValue()) {
 				Keyword dockw = Keyword.intern(null, "doc");
 				Keyword arglistskw = Keyword.intern(null, "arglists");
 				Symbol namesym = Symbol.create("name");
@@ -471,7 +470,10 @@ public class RTTC {
 				v = Var.intern(CLOJURE_NS, IDENTICAL, new AFn() {
 					public Object invoke(Object arg1, Object arg2)
 							throws Exception {
-						return arg1 == arg2 ? RT.T : RT.F;
+						if (arg1 == arg2)
+							return RT.T;
+						else
+							return RT.F;
 					}
 				});
 				v.setMeta(map(dockw,
@@ -498,9 +500,9 @@ public class RTTC {
 					Var.popThreadBindings();
 				}
 
-//				INITIALIZED.val = T;
-//			}
-//		}
+				INITIALIZED.val = T;
+			}
+		}
 	}
 
 	static public int nextID() {
