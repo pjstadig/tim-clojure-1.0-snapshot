@@ -2,7 +2,7 @@ This is an example of using Terracotta Integration Module for the Clojure langua
 
 This is the "shared everything" example of using Clojure with Terracotta.  The goal is to have multiple VMs working together in the same shared, global context through Terracotta.  This means that everything in the Clojure environment should be shared by default.  I have worked out the class replacement for a TIM, and I have created a few replacement classes so that Clojure will play nicely with Terracotta.  There are still some issues:
 
-1. A roadblock at the moment is the root bindings for *in*, *out* and *err*.  They cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually (hence the 'tc-repl.clj' file).
+1. A roadblock at the moment is the root bindings for `*in*`, `*out*` and `*err*`.  They cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually (hence the `tc-repl.clj` file).
 
 2. Agents and Atoms are not yet supported.  They still use some non-portable classes (from Terracotta's perspective) that need to be removed.
 
@@ -15,12 +15,12 @@ How to run this example
 
 1. Install Maven, Terracotta, and Clojure.  Please refer to the appropriate websites ([http://maven.apache.org/](http://maven.apache.org/), ([http://www.terracotta.org/](http://www.terracotta.org/), and [http://www.clojure.org/](http://www.clojure.org/)) for installation instructions. (NOTE: You will need to make sure that you are using Clojure [r1310](http://code.google.com/p/clojure/source/browse/trunk/src/jvm/clojure/lang/Keyword.java?r=1310) or later, because the Keyword class needs to have hashCode implemented to play nicely with Terracotta.)
 
-2. Define three environment variables: JAVA_HOME, TC_HOME, and CLOJURE_EXT.  JAVA_HOME should be the directory in which you installed the JDK.  TC_HOME should be the directory in which you installed Terracotta.  CLOJURE_EXT should be the directory in which you have any Clojure code you'd like to be added to the classpath.  For simplicity, I have just linked my clojure-slim.jar into my CLOJURE_EXT directory.  If you don't want to do that, then you can also define a CLASSPATH envorinment variable that includes your clojure-slim.jar.
-   (**\*\*IMPORTANT NOTE\*\* You must use clojure-slim.jar.  This TIM makes compiler changes, and the full clojure.jar includes precompiled versions of core.clj, main.clj, etc.  You need to let the TIM compile those files for you.**)
+2. Define three environment variables: `JAVA_HOME`, `TC_HOME`, and `CLOJURE_EXT`.  `JAVA_HOME` should be the directory in which you installed the JDK.  `TC_HOME` should be the directory in which you installed Terracotta.  `CLOJURE_EXT` should be the directory in which you have any Clojure code you'd like to be added to the classpath.  For simplicity, I have just linked my `clojure-slim.jar` into my `CLOJURE_EXT` directory.  If you don't want to do that, then you can also define a `CLASSPATH` envorinment variable that includes your `clojure-slim.jar`.
+   (**\*\*IMPORTANT NOTE\*\* You must use `clojure-slim.jar`.  This TIM makes compiler changes, and the full `clojure.jar` includes precompiled versions of `core.clj`, `main.clj`, etc.  You need to let the TIM compile those files for you.**)
 
-3. Start the Terracotta server.  From this directory type "mvn tc:start".  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type "mvn tc:admin" from this directory.
+3. Start the Terracotta server.  From this directory type `mvn tc:start`.  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type `mvn tc:admin` from this directory.
 
-4. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type "./bin/dso-clojure @tc-repl.clj".  If you'd like to run it with a debugger, then type "./bin/dso-clojure-debug @tc-repl.clj".  You can then connect a Java debugger (JSwat has worked for me) to localhost:8888.
+4. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type `./bin/dso-clojure @tc-repl.clj`.  If you'd like to run it with a debugger, then type `./bin/dso-clojure-debug @tc-repl.clj`.  You can then connect a Java debugger (JSwat has worked for me) to `localhost:8888`.
 
 Once in the REPL, you can do anything you would normally do in a Clojure REPL.  Here is a transcript of a session:
 
