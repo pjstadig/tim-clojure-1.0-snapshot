@@ -11,8 +11,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
   <properties>
     <forgeTags>Integration Module</forgeTags>
-    <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
-    <Bundle-Copyright>Copyright (c) 2009 Stadig Technologies, LLC</Bundle-Copyright>
   </properties>
 
   <modelVersion>4.0.0</modelVersion>
@@ -110,6 +108,7 @@
         <groupId>org.terracotta.maven.plugins</groupId>
         <artifactId>tc-maven-plugin</artifactId>
         <configuration>
+          <bundleRequiredExecutionEnvironment>J2SE-1.5</bundleRequiredExecutionEnvironment>
           <bundleCopyright>Copyright (c) 2009 Stadig Technologies, LLC</bundleCopyright>
           <bundleActivator>stadigtech.terracotta.modules.clojure_1_0_SNAPSHOT.ClojureTerracottaConfigurator</bundleActivator>
           <importPackage>org.terracotta.modules.configuration</importPackage>

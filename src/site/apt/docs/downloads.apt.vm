@@ -4,11 +4,11 @@ Downloads
 	portions. 
 	
 	To ensure that you have the latest and greatest, you can checkout the project from 
-	our Subversion repository:	
+	our public git repository:	
 
 ---
-$ svn checkout \
-  ${project.scm.url} \
+$ git clone \
+  git://github.com/pjstadig/tim-clojure-1.0-snapshot.git \
   ${project.artifactId}-${project.version}
 ---
 
