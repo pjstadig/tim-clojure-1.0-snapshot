@@ -80,7 +80,7 @@ JVM #2
 
 This is alpha state, so there are certainly some cases that will fail.
 
-For more details about the problems, possible solutions, and to keep track of progress, check out my blog ["http://paul.stadig.name/"](http://paul.stadig.name/).
+For more details about the problems, possible solutions, and to keep track of progress, check out my blog [http://paul.stadig.name/](http://paul.stadig.name/).
 
 Clojure code is copyright Rich Hickey.
 
