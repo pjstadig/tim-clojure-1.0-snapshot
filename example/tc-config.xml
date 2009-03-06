@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-
-  All content copyright (c) 2003-2008 Terracotta, Inc.,
-  except as may otherwise be noted in a separate copyright notice.
-  All rights reserved.
-
+    Copyright (c) Stadig Technologies, LLC. All rights reserved.
+    The use and distribution terms for this software are covered by the
+    Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+    which can be found in the file epl-v10.html at the root of this distribution.
+    By using this software in any fashion, you are agreeing to be bound by
+    the terms of this license.
+    You must not remove this notice, or any other, from this software.
 -->
 <tc:tc-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tc="http://www.terracotta.org/config" xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-4.xsd">
   <!--Server is colocated with client and DSO is listening on
@@ -46,7 +48,7 @@
       <repository>%(user.home)/.m2/repository</repository>
       <module name="tim-clojure-1.0-SNAPSHOT"
               version="1.0-SNAPSHOT"
-              group-id="stadigtech.clojure.terracotta" />
+              group-id="stadigtech.terracotta.modules" />
     </modules>
     <logs>%(user.home)/terracotta/client-logs/org.terracotta.modules.sample/%D</logs>
   </clients>

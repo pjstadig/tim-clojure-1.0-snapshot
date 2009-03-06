@@ -1,4 +1,4 @@
-package stadigtech.clojure.terracotta.clojure_1_0_SNAPSHOT;
+package stadigtech.terracotta.modules.clojure_1_0_SNAPSHOT;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -9,7 +9,7 @@ public class ClojureTerracottaConfigurator extends TerracottaConfiguratorModule 
 	protected void addInstrumentation(BundleContext context) {
 		super.addInstrumentation(context);
 		Bundle bundle = getExportedBundle(context,
-				"stadigtech.clojure.terracotta.tim-clojure-1.0-SNAPSHOT");
+				"stadigtech.terracotta.modules.tim-clojure-1.0-SNAPSHOT");
 		addClassReplacement(bundle, "clojure.lang.Namespace",
 				"clojure.lang.NamespaceTC");
 		addClassReplacement(bundle, "clojure.lang.Var", "clojure.lang.VarTC");

@@ -10,25 +10,22 @@
 -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
   <properties>
-    <forgeTags>Integration Module</forgeTags>
-    <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
-    <Bundle-Copyright>Copyright (c) 2009 Stadig Technologies, LLC</Bundle-Copyright>
+     <tc-maven-plugin.version>1.2.3</tc-maven-plugin.version>
   </properties>
-
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.terracotta.forge</groupId>
-    <artifactId>tim-parent</artifactId>
-    <version>1.2.3</version>
+    <artifactId>application-parent</artifactId>
+    <version>1.0.8</version>
   </parent>
 
   <packaging>jar</packaging>
-  <groupId>stadigtech.terracotta.modules</groupId>
-  <artifactId>tim-clojure-1.0-SNAPSHOT</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>tim-clojure-1.0-SNAPSHOT</name>
+  <groupId>stadigtech.terracotta</groupId>
+  <artifactId>shared-everything</artifactId>
+  <version>1.0.0</version>
+  <name>Clojure+Terracotta shared-everything sample application</name>
   <description>
-    A Terracotta Integration Module for the Clojure language.
+    Sample application that demonstrates the "shared everything" usage of the tim-clojure-1.0-SNAPSHOT TIM.
   </description>
   <url>http://github.com/pjstadig/tim-clojure-1.0-snapshot/tree/master</url>
   <inceptionYear>2009</inceptionYear>
@@ -77,6 +74,11 @@
       <artifactId>terracotta</artifactId>
       <version>2.7.3</version>
     </dependency>
+    <dependency>
+      <groupId>stadigtech.terracotta.modules</groupId>
+      <artifactId>tim-clojure-1.0-SNAPSHOT</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <scm>
@@ -88,32 +90,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>src</descriptorRef>
-            <descriptorRef>bin</descriptorRef>
-          </descriptorRefs>
-          <outputDirectory>${project.build.directory}/site/downloads</outputDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>site</phase>
-            <goals>
-              <goal>assembly</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.terracotta.maven.plugins</groupId>
         <artifactId>tc-maven-plugin</artifactId>
-        <configuration>
-          <bundleCopyright>Copyright (c) 2009 Stadig Technologies, LLC</bundleCopyright>
-          <bundleActivator>stadigtech.terracotta.modules.clojure_1_0_SNAPSHOT.ClojureTerracottaConfigurator</bundleActivator>
-          <importPackage>org.terracotta.modules.configuration</importPackage>
-        </configuration>
+        <version>${tc-maven-plugin.version}</version>
       </plugin>
     </plugins>
   </build>
@@ -137,16 +116,4 @@
       </snapshots>
     </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>terracotta-repository</id>
-      <url>http://www.terracotta.org/download/reflector/maven2</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 </project>
