@@ -92,6 +92,13 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
+    <repository>
+      <id>tapestry-snapshots</id>
+      <url>http://tapestry.formos.com/maven-snapshot-repository/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>

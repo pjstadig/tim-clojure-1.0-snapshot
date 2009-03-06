@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.PushbackReader;
 import java.io.Reader;
@@ -25,6 +26,7 @@ import java.io.Writer;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.JarURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.AccessController;
@@ -40,6 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 
 public class RTTC {
+	private static DynamicClassLoader ROOT_CLASSLOADER = getRootClassLoader();
 
 	static final public Boolean T = Boolean.TRUE;// Keyword.intern(Symbol.create(null,
 
@@ -197,8 +200,6 @@ public class RTTC {
 	// Symbol.create("SortedMap"), "java.util.SortedMap",
 	// Symbol.create("SortedSet"), "java.util.SortedSet"
 	);
-	
-	private static DynamicClassLoader ROOT_CLASSLOADER = getRootClassLoader();
 
 	// single instance of UTF-8 Charset, so as to avoid catching
 	// UnsupportedCharsetExceptions everywhere
@@ -206,6 +207,9 @@ public class RTTC {
 
 	static public final Namespace CLOJURE_NS = Namespace.findOrCreate(Symbol
 			.create("clojure.core"));
+
+	private static final Var INITIALIZED = Var.intern(CLOJURE_NS, Symbol
+			.create("*initialized*"), F, false);
 
 	// static final Namespace USER_NS =
 	// Namespace.findOrCreate(Symbol.create("user"));
@@ -276,14 +280,13 @@ public class RTTC {
 	final static Var IN_NS_VAR = Var.intern(CLOJURE_NS, Symbol.create("in-ns"),
 			F, false);
 
-	final static Var NS_VAR = Var.intern(CLOJURE_NS, Symbol.create("ns"), F, false);
+	final static Var NS_VAR = Var.intern(CLOJURE_NS, Symbol.create("ns"), F,
+			false);
 
 	static final Var PRINT_INITIALIZED = Var.intern(CLOJURE_NS, Symbol
 			.create("print-initialized"));
 
 	static final Var PR_ON = Var.intern(CLOJURE_NS, Symbol.create("pr-on"));
-
-	static final Box INITIALIZED = new Box(F);
 
 	// final static Var IMPORTS = Var.intern(CLOJURE_NS,
 	// Symbol.create("*imports*"), DEFAULT_IMPORTS);
@@ -321,6 +324,16 @@ public class RTTC {
 		URL u = (url instanceof String) ? (new URL((String) url)) : (URL) url;
 		getRootClassLoader().addURL(u);
 	}
+
+	final static public Object EOS = new Object();
+
+	final static public Object SKIP = new Object();
+
+	static final public IFn EMPTY_GEN = new AFn() {
+		synchronized public Object invoke() throws Exception {
+			return EOS;
+		}
+	};
 
 	static {
 		try {
@@ -380,8 +393,13 @@ public class RTTC {
 				.println("No need to call RT.init() anymore");
 	}
 
-	static public long lastModified(URL url) throws Exception {
-		return url.openConnection().getLastModified();
+	static public long lastModified(URL url, String libfile) throws Exception {
+		if (url.getProtocol().equals("jar")) {
+			return ((JarURLConnection) url.openConnection()).getJarFile()
+					.getEntry(libfile).getTime();
+		} else {
+			return url.openConnection().getLastModified();
+		}
 	}
 
 	static void compile(String cljfile) throws Exception {
@@ -412,7 +430,8 @@ public class RTTC {
 		URL cljURL = baseLoader().getResource(cljfile);
 		boolean loaded = false;
 
-		if ((classURL != null && (cljURL == null || lastModified(classURL) > lastModified(cljURL)))
+		if ((classURL != null && (cljURL == null || lastModified(classURL,
+				classfile) > lastModified(cljURL, cljfile)))
 				|| classURL == null) {
 			try {
 				Var.pushThreadBindings(RT.map(CURRENT_NS, CURRENT_NS.deref(),
@@ -436,7 +455,7 @@ public class RTTC {
 
 	static void doInit() throws Exception {
 		synchronized (INITIALIZED) {
-			if (!((Boolean) INITIALIZED.val).booleanValue()) {
+			if (!booleanCast(INITIALIZED.deref())) {
 				Keyword dockw = Keyword.intern(null, "doc");
 				Keyword arglistskw = Keyword.intern(null, "arglists");
 				Symbol namesym = Symbol.create("name");
@@ -470,10 +489,19 @@ public class RTTC {
 				v = Var.intern(CLOJURE_NS, IDENTICAL, new AFn() {
 					public Object invoke(Object arg1, Object arg2)
 							throws Exception {
-						if (arg1 == arg2)
+						if (utilSame(arg1, arg2))
 							return RT.T;
 						else
 							return RT.F;
+					}
+
+					private boolean utilSame(Object o1, Object o2) {
+						try {
+							return ((Boolean) Reflector.invokeStaticMethod(Util.class, "same",
+									new Object[] { o1, o2 })).booleanValue();
+						} catch (Exception e) {
+							throw new RuntimeException("Could not invoke 'same' method of Util", e);
+						}
 					}
 				});
 				v.setMeta(map(dockw,
@@ -499,8 +527,7 @@ public class RTTC {
 				} finally {
 					Var.popThreadBindings();
 				}
-
-				INITIALIZED.val = T;
+				INITIALIZED.bindRoot(T);
 			}
 		}
 	}
@@ -520,29 +547,22 @@ public class RTTC {
 			return seqFrom(coll);
 	}
 
-	static public IStream stream(final Object coll) throws Exception {
+	static public Stream stream(final Object coll) throws Exception {
 		if (coll == null)
-			return EMPTY_STREAM;
-		else if (coll instanceof IStream)
-			return (IStream) coll;
+			return new Stream(EMPTY_GEN);
 		else if (coll instanceof Streamable)
 			return ((Streamable) coll).stream();
-		else if (coll instanceof Fn) {
-			return new IStream() {
-				public Object next() throws Exception {
-					return ((IFn) coll).invoke();
-				}
-			};
-		} else if (coll instanceof Iterable)
-			return new IteratorStream(((Iterable) coll).iterator());
+		else if (coll instanceof Fn)
+			return new Stream((IFn) coll);
+		else if (coll instanceof Iterable)
+			return new Stream(new IteratorStream(((Iterable) coll).iterator()));
 		else if (coll.getClass().isArray())
 			return ArrayStream.createFromObject(coll);
 		else if (coll instanceof String)
 			return ArrayStream.createFromObject(((String) coll).toCharArray());
+		else
+			return new Stream(new ASeq.Src(RT.seq(coll)));
 
-		throw new IllegalArgumentException(
-				"Don't know how to create IStream from: "
-						+ coll.getClass().getSimpleName());
 	}
 
 	static ISeq seqFrom(Object coll) {
@@ -1207,7 +1227,7 @@ public class RTTC {
 		return i;
 	}
 
-	// /////////////////////////////// reader support
+	// ////////////////////////////// / reader support
 	// ////////////////////////////////
 
 	static Character readRet(int ret) {
@@ -1534,7 +1554,7 @@ public class RTTC {
 		return args;
 	}
 
-	// /////////////////////////////// values //////////////////////////
+	// ////////////////////////////// / values //////////////////////////
 
 	static public Object[] setValues(Object... vals) {
 		// ThreadLocalData.setValues(vals);
@@ -1548,13 +1568,12 @@ public class RTTC {
 				.doPrivileged(new PrivilegedAction() {
 					public Object run() {
 						getRootClassLoader();
-						DynamicClassLoader d = new DynamicClassLoader(
-								baseLoader());
-						((com.tc.object.loaders.NamedClassLoader) d)
+						DynamicClassLoader loader = new DynamicClassLoader(baseLoader()); 
+						((com.tc.object.loaders.NamedClassLoader) loader)
 								.__tc_setClassLoaderName("Clojure Classloader");
 						com.tc.object.bytecode.hook.impl.ClassProcessorHelper
-								.registerGlobalLoader((com.tc.object.loaders.NamedClassLoader) d);
-						return d;
+								.registerGlobalLoader((com.tc.object.loaders.NamedClassLoader) loader);
+						return loader;
 					}
 				});
 	}
@@ -1748,23 +1767,6 @@ public class RTTC {
 	static public int alength(Object xs) {
 		return Array.getLength(xs);
 	}
-
-	final static private Object EOS = new Object();
-
-	final static public Object eos() {
-		return EOS;
-	}
-
-	static public boolean isEOS(Object o) {
-		return o == EOS;
-	}
-
-	static final public IStream EMPTY_STREAM = new IStream() {
-
-		public Object next() throws Exception {
-			return eos();
-		}
-	};
 
 	synchronized public static DynamicClassLoader getRootClassLoader() {
 		if (ROOT_CLASSLOADER == null) {

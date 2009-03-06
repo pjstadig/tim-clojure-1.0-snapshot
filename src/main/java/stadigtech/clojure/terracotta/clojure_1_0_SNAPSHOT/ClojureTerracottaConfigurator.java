@@ -29,5 +29,11 @@ public class ClojureTerracottaConfigurator extends TerracottaConfiguratorModule 
 		addClassReplacement(bundle, "clojure.lang.DynamicClassLoader", "clojure.lang.DynamicClassLoaderTC");
 		addClassReplacement(bundle, "clojure.lang.Reflector", "clojure.lang.ReflectorTC");
 		addClassReplacement(bundle, "clojure.lang.ProxyHandler", "clojure.lang.ProxyHandlerTC");
+		addClassReplacement(bundle, "clojure.lang.Compiler$IfExpr", "clojure.lang.IfExprTC");
+		addClassReplacement(bundle, "clojure.lang.Compiler$IfExpr$Parser", "clojure.lang.IfExprTC$Parser");
+		addClassReplacement(bundle, "clojure.lang.PersistentArrayMap", "clojure.lang.PersistentArrayMapTC");
+		addClassReplacement(bundle, "clojure.lang.PersistentHashMap$LeafNode", "clojure.lang.LeafNodeTC");
+		addClassReplacement(bundle, "clojure.lang.PersistentTreeMap", "clojure.lang.PersistentTreeMapTC");
+		addClassReplacement(bundle, "clojure.lang.Util", "clojure.lang.UtilTC");
 	}
 }

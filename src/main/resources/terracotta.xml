@@ -44,6 +44,12 @@
       <field-name>clojure.lang.RT.F</field-name>
     </root>
     <root>
+      <field-name>clojure.lang.RT.EOS</field-name>
+    </root>
+    <root>
+      <field-name>clojure.lang.RT.SKIP</field-name>
+    </root>
+    <root>
       <field-name>clojure.lang.Var.NOT_BOUND</field-name>
     </root>
     <root>

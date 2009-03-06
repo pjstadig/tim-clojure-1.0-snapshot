@@ -50,7 +50,7 @@ function die { echo "$1" 1>&2; exit 1; }
     "CLOJURE_EXT=\"${CLOJURE_EXT:-}\": directory not found"
 
 EXT="$(find ${CLOJURE_EXT} -mindepth 1 -maxdepth 1 -print0 | tr \\0 \:)"
-CLASSPATH="../target/tim-clojure-1.0-SNAPSHOT-1.0-SNAPSHOT.jar:../../clojure.jar:${EXT%:}${CLASSPATH:+:${CLASSPATH}}"
+CLASSPATH="../target/tim-clojure-1.0-SNAPSHOT-1.0-SNAPSHOT.jar:${EXT%:}${CLASSPATH:+:${CLASSPATH}}"
 export CLASSPATH
 
 JAVA=${CLOJURE_JAVA:-${TC_HOME}/bin/dso-java.sh}
