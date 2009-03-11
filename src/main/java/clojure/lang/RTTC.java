@@ -208,8 +208,7 @@ public class RTTC {
 	static public final Namespace CLOJURE_NS = Namespace.findOrCreate(Symbol
 			.create("clojure.core"));
 
-	private static final Var INITIALIZED = Var.intern(CLOJURE_NS, Symbol
-			.create("*initialized*"), F, false);
+	private static boolean INITIALIZED = false;
 
 	// static final Namespace USER_NS =
 	// Namespace.findOrCreate(Symbol.create("user"));
@@ -454,8 +453,8 @@ public class RTTC {
 	}
 
 	static void doInit() throws Exception {
-		synchronized (INITIALIZED) {
-			if (!booleanCast(INITIALIZED.deref())) {
+		//synchronized (INITIALIZED) {
+			if (!INITIALIZED) {
 				Keyword dockw = Keyword.intern(null, "doc");
 				Keyword arglistskw = Keyword.intern(null, "arglists");
 				Symbol namesym = Symbol.create("name");
@@ -497,10 +496,13 @@ public class RTTC {
 
 					private boolean utilSame(Object o1, Object o2) {
 						try {
-							return ((Boolean) Reflector.invokeStaticMethod(Util.class, "same",
-									new Object[] { o1, o2 })).booleanValue();
+							return ((Boolean) Reflector
+									.invokeStaticMethod(Util.class, "same",
+											new Object[] { o1, o2 }))
+									.booleanValue();
 						} catch (Exception e) {
-							throw new RuntimeException("Could not invoke 'same' method of Util", e);
+							throw new RuntimeException(
+									"Could not invoke 'same' method of Util", e);
 						}
 					}
 				});
@@ -527,9 +529,10 @@ public class RTTC {
 				} finally {
 					Var.popThreadBindings();
 				}
-				INITIALIZED.bindRoot(T);
+				
+				INITIALIZED = true;
 			}
-		}
+		//}
 	}
 
 	static public int nextID() {
@@ -1568,7 +1571,8 @@ public class RTTC {
 				.doPrivileged(new PrivilegedAction() {
 					public Object run() {
 						getRootClassLoader();
-						DynamicClassLoader loader = new DynamicClassLoader(baseLoader()); 
+						DynamicClassLoader loader = new DynamicClassLoader(
+								baseLoader());
 						((com.tc.object.loaders.NamedClassLoader) loader)
 								.__tc_setClassLoaderName("Clojure Classloader");
 						com.tc.object.bytecode.hook.impl.ClassProcessorHelper

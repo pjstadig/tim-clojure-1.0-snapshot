@@ -8,30 +8,6 @@
       <field-name>clojure.lang.Namespace.namespaces</field-name>
     </root>
     <root>
-      <field-name>clojure.lang.PersistentHashMap.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentArrayMap.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentHashSet.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentQueue.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentTreeMap.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentTreeSet.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentVector.EMPTY</field-name>
-    </root>
-    <root>
-      <field-name>clojure.lang.PersistentList.EMPTY</field-name>
-    </root>
-    <root>
       <field-name>clojure.lang.RT.INITIALIZED</field-name>
     </root>
     <root>
@@ -55,26 +31,19 @@
     <root>
       <field-name>clojure.lang.DynamicClassLoader.map</field-name>
     </root>
-    <!--root>
-      <field-name>clojure.lang.DynamicClassLoader.constantVals</field-name>
-    </root-->
   </roots>
   <locks>
     <autolock>
-      <method-expression>* clojure..*.*(..)</method-expression>
-      <lock-level>write</lock-level>
+      <method-expression> * clojure..*.*(..)</method-expression>
     </autolock>
     <autolock auto-synchronized="true">
       <method-expression>* clojure.lang.APersistentVector.hashCode(..)</method-expression>
-      <lock-level>write</lock-level>
     </autolock>
     <autolock auto-synchronized="true">
       <method-expression>* clojure.lang.APersistentSet.hashCode(..)</method-expression>
-      <lock-level>write</lock-level>
     </autolock>
     <autolock auto-synchronized="true">
       <method-expression>* clojure.lang.APersistentMap.hashCode(..)</method-expression>
-      <lock-level>write</lock-level>
     </autolock>
   </locks>
   <additional-boot-jar-classes>

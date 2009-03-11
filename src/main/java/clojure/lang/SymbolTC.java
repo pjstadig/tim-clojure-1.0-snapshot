@@ -21,7 +21,7 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 
 	final String name;
 
-	final int hash;
+	// final int hash;
 
 	public String toString() {
 		if (ns != null)
@@ -61,7 +61,7 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 	private SymbolTC(String ns_interned, String name_interned) {
 		this.name = name_interned;
 		this.ns = ns_interned;
-		this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
+		// this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
 	}
 
 	public boolean equals(Object o) {
@@ -86,7 +86,14 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 	}
 
 	public int hashCode() {
-		return hash;
+		String theNs = null;
+		if (ns != null)
+			theNs = ns.intern();
+		String theName = null;
+		if (name != null)
+			theName = name.intern();
+
+		return Util.hashCombine(Util.hash(theName), Util.hash(theNs));
 	}
 
 	public Obj withMeta(IPersistentMap meta) {
@@ -97,7 +104,7 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 		super(meta);
 		this.name = name;
 		this.ns = ns;
-		this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
+		// this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
 	}
 
 	public int compareTo(Object o) {

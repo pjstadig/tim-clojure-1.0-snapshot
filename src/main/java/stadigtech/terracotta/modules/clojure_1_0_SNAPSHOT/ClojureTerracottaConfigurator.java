@@ -32,7 +32,10 @@ public class ClojureTerracottaConfigurator extends TerracottaConfiguratorModule 
 		addClassReplacement(bundle, "clojure.lang.Compiler$IfExpr", "clojure.lang.IfExprTC");
 		addClassReplacement(bundle, "clojure.lang.Compiler$IfExpr$Parser", "clojure.lang.IfExprTC$Parser");
 		addClassReplacement(bundle, "clojure.lang.PersistentArrayMap", "clojure.lang.PersistentArrayMapTC");
-		addClassReplacement(bundle, "clojure.lang.PersistentHashMap$LeafNode", "clojure.lang.LeafNodeTC");
+		addClassReplacement(bundle, "clojure.lang.PersistentHashMap", "clojure.lang.PersistentHashMapTC");
+		addClassReplacement(bundle, "clojure.lang.PersistentHashMap$LeafNode", "clojure.lang.PersistentHashMapTC$LeafNode");
+		addClassReplacement(bundle, "clojure.lang.PersistentHashMap$FullNode", "clojure.lang.PersistentHashMapTC$FullNode");
+		addClassReplacement(bundle, "clojure.lang.PersistentHashMap$BitmapIndexedNode", "clojure.lang.PersistentHashMapTC$BitmapIndexedNode");
 		addClassReplacement(bundle, "clojure.lang.PersistentTreeMap", "clojure.lang.PersistentTreeMapTC");
 		addClassReplacement(bundle, "clojure.lang.Util", "clojure.lang.UtilTC");
 	}

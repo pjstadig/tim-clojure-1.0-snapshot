@@ -27,23 +27,7 @@ public class NamespaceTC extends AReference {
 
 	final static Symbol ERR_SYM = Symbol.create("*err*");
 
-	final static ConcurrentHashMap<Symbol, NamespaceTC> namespaces = new ConcurrentHashMap<Symbol, NamespaceTC>();
-
-	@Override
-	public boolean equals(Object o) {
-		if (o == null)
-			return false;
-
-		if (o == this)
-			return true;
-
-		if (!(o instanceof NamespaceTC))
-			return false;
-
-		NamespaceTC ns = (NamespaceTC) o;
-
-		return ns.name.equals(this.name);
-	}
+	final static ConcurrentHashMap<Symbol, Namespace> namespaces = new ConcurrentHashMap<Symbol, Namespace>();
 
 	public String toString() {
 		return name.toString();
@@ -68,7 +52,7 @@ public class NamespaceTC extends AReference {
 		return mappings;
 	}
 
-	public synchronized VarTC intern(Symbol sym) {
+	public synchronized Var intern(Symbol sym) {
 		if (sym.ns != null) {
 			throw new IllegalArgumentException(
 					"Can't intern namespace-qualified symbol");
@@ -78,13 +62,13 @@ public class NamespaceTC extends AReference {
 		Object v = null;
 		while ((o = map.valAt(sym)) == null) {
 			if (v == null)
-				v = new VarTC((Namespace)(Object)this, sym);
+				v = new Var((Namespace) (Object) this, sym);
 			IPersistentMap newMap = map.assoc(sym, v);
 			mappings = newMap;
 			map = getMappings();
 		}
-		if (o instanceof VarTC && this.equals(((VarTC) o).ns))
-			return (VarTC) o;
+		if (o instanceof Var && ((Var) o).ns == (Namespace) (Object) this)
+			return (Var) o;
 
 		throw new IllegalStateException(sym + " already refers to: " + o
 				+ " in namespace: " + name);
@@ -124,31 +108,29 @@ public class NamespaceTC extends AReference {
 
 	public Class importClass(Symbol sym, Class c) {
 		return (Class) reference(sym, c);
-
 	}
 
-	public VarTC refer(Symbol sym, VarTC var) {
-		return (VarTC) reference(sym, var);
-
+	public Var refer(Symbol sym, Var var) {
+		return (Var) reference(sym, var);
 	}
 
-	public static NamespaceTC findOrCreate(Symbol name) {
-		NamespaceTC ns = namespaces.get(name);
+	public static Namespace findOrCreate(Symbol name) {
+		Namespace ns = namespaces.get(name);
 		if (ns != null)
 			return ns;
-		NamespaceTC newns = new NamespaceTC(name);
+		Namespace newns = new Namespace(name);
 		ns = namespaces.putIfAbsent(name, newns);
 		return ns == null ? newns : ns;
 	}
 
-	public static NamespaceTC remove(Symbol name) {
+	public static Namespace remove(Symbol name) {
 		if (name.equals(RT.CLOJURE_NS.name))
 			throw new IllegalArgumentException(
 					"Cannot remove clojure namespace");
 		return namespaces.remove(name);
 	}
 
-	public static NamespaceTC find(Symbol name) {
+	public static Namespace find(Symbol name) {
 		return namespaces.get(name);
 	}
 
@@ -156,10 +138,11 @@ public class NamespaceTC extends AReference {
 		return mappings.valAt(name);
 	}
 
-	public synchronized VarTC findInternedVar(Symbol symbol) {
+	public synchronized Var findInternedVar(Symbol symbol) {
 		Object o = mappings.valAt(symbol);
-		if (o != null && o instanceof VarTC && ((VarTC) o).ns.equals(this))
-			return (VarTC) o;
+		if (o != null && o instanceof Var
+				&& ((Var) o).ns == (Namespace) (Object) this)
+			return (Var) o;
 		return null;
 	}
 
@@ -167,12 +150,12 @@ public class NamespaceTC extends AReference {
 		return aliases;
 	}
 
-	public NamespaceTC lookupAlias(Symbol alias) {
+	public Namespace lookupAlias(Symbol alias) {
 		IPersistentMap map = getAliases();
-		return (NamespaceTC) map.valAt(alias);
+		return (Namespace) map.valAt(alias);
 	}
 
-	public synchronized void addAlias(Symbol alias, NamespaceTC ns) {
+	public synchronized void addAlias(Symbol alias, Namespace ns) {
 		if (alias == null || ns == null)
 			throw new NullPointerException("Expecting Symbol + Namespace");
 		IPersistentMap map = getAliases();

@@ -63,7 +63,7 @@ public class UtilTC {
 		if (o == null)
 			return 0;
 		if (o instanceof Class)
-			return ((Class)o).getName().hashCode();
+			return ((Class) o).getName().hashCode();
 		return o.hashCode();
 	}
 
