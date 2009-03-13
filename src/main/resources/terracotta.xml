@@ -47,7 +47,6 @@
     </autolock>
   </locks>
   <additional-boot-jar-classes>
-    <include>java.util.UUID</include>
     <include>java.nio.charset.Charset</include>
     <include>java.io.Writer</include>
     <include>java.io.OutputStreamWriter</include>
@@ -58,6 +57,97 @@
     <include>java.nio.Buffer</include>
     <include>java.nio.HeapByteBuffer</include>
     <include>java.nio.charset.CharsetEncoder</include>
+    <include>java.util.UUID</include>
+    <include>java.util.regex.Pattern</include>
+    <include>java.util.regex.Pattern$1</include>
+    <include>java.util.regex.Pattern$2</include>
+    <include>java.util.regex.Pattern$3</include>
+    <include>java.util.regex.Pattern$4</include>
+    <include>java.util.regex.Pattern$5</include>
+    <include>java.util.regex.Pattern$6</include>
+    <include>java.util.regex.Pattern$7</include>
+    <include>java.util.regex.Pattern$8</include>
+    <include>java.util.regex.Pattern$All</include>
+    <include>java.util.regex.Pattern$BackRef</include>
+    <include>java.util.regex.Pattern$Begin</include>
+    <include>java.util.regex.Pattern$Behind</include>
+    <include>java.util.regex.Pattern$BehindS</include>
+    <include>java.util.regex.Pattern$BitClass</include>
+    <include>java.util.regex.Pattern$BmpCharProperty</include>
+    <include>java.util.regex.Pattern$BnM</include>
+    <include>java.util.regex.Pattern$BnMS</include>
+    <include>java.util.regex.Pattern$Bound</include>
+    <include>java.util.regex.Pattern$Branch</include>
+    <include>java.util.regex.Pattern$BranchConn</include>
+    <include>java.util.regex.Pattern$Caret</include>
+    <include>java.util.regex.Pattern$Category</include>
+    <include>java.util.regex.Pattern$CharProperty</include>
+    <include>java.util.regex.Pattern$CharProperty$1</include>
+    <include>java.util.regex.Pattern$CharPropertyNames</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$1</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$2</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$3</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$4</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$5</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$6</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$7</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$8</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$9</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$10</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$11</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$12</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$13</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$14</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$15</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$16</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$17</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$18</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$19</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$20</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$21</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$CharPropertyFactory</include>
+    <include>java.util.regex.Pattern$CharPropertyNames$CloneableProperty</include>
+    <include>java.util.regex.Pattern$CIBackRef</include>
+    <include>java.util.regex.Pattern$Conditional</include>
+    <include>java.util.regex.Pattern$Ctype</include>
+    <include>java.util.regex.Pattern$Curly</include>
+    <include>java.util.regex.Pattern$Dollar</include>
+    <include>java.util.regex.Pattern$Dot</include>
+    <include>java.util.regex.Pattern$End</include>
+    <include>java.util.regex.Pattern$First</include>
+    <include>java.util.regex.Pattern$GroupCurly</include>
+    <include>java.util.regex.Pattern$GroupHead</include>
+    <include>java.util.regex.Pattern$GroupRef</include>
+    <include>java.util.regex.Pattern$GroupTail</include>
+    <include>java.util.regex.Pattern$LastMatch</include>
+    <include>java.util.regex.Pattern$LastNode</include>
+    <include>java.util.regex.Pattern$LazyLoop</include>
+    <include>java.util.regex.Pattern$Loop</include>
+    <include>java.util.regex.Pattern$Neg</include>
+    <include>java.util.regex.Pattern$Node</include>
+    <include>java.util.regex.Pattern$NotBehind</include>
+    <include>java.util.regex.Pattern$NotBehindS</include>
+    <include>java.util.regex.Pattern$Pos</include>
+    <include>java.util.regex.Pattern$Prolog</include>
+    <include>java.util.regex.Pattern$Ques</include>
+    <include>java.util.regex.Pattern$Single</include>
+    <include>java.util.regex.Pattern$SingleI</include>
+    <include>java.util.regex.Pattern$SingleS</include>
+    <include>java.util.regex.Pattern$SingleU</include>
+    <include>java.util.regex.Pattern$Slice</include>
+    <include>java.util.regex.Pattern$SliceI</include>
+    <include>java.util.regex.Pattern$SliceIS</include>
+    <include>java.util.regex.Pattern$SliceU</include>
+    <include>java.util.regex.Pattern$SliceNode</include>
+    <include>java.util.regex.Pattern$SliceS</include>
+    <include>java.util.regex.Pattern$SliceU</include>
+    <include>java.util.regex.Pattern$SliceUS</include>
+    <include>java.util.regex.Pattern$Start</include>
+    <include>java.util.regex.Pattern$StartS</include>
+    <include>java.util.regex.Pattern$TreeInfo</include>
+    <include>java.util.regex.Pattern$UnixCaret</include>
+    <include>java.util.regex.Pattern$UnixDollar</include>
+    <include>java.util.regex.Pattern$UnixDot</include>
     <include>sun.nio.cs.Unicode</include>
     <include>sun.nio.cs.UTF_8</include>
     <include>sun.nio.cs.StreamEncoder</include>

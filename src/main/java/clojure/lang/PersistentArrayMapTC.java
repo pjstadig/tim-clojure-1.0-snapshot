@@ -109,7 +109,8 @@ public class PersistentArrayMapTC extends APersistentMap {
 		{
 			if (utilSame(array[i + 1], val)) // no change, no op
 				return this;
-			newArray = array.clone();
+			newArray = new Object[array.length];
+			System.arraycopy(array, 0, newArray, 0, array.length);
 			newArray[i + 1] = val;
 		} else // didn't have key, grow
 		{

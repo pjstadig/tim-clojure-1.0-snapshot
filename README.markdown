@@ -12,7 +12,7 @@ Clojure code is copyright Rich Hickey.
     the terms of this license.
     You must not remove this notice, or any other, from this software.
     
-    Modifications are copyright Paul Stadig, and released under the same license.
+    Modifications are copyright Stadig Technologies, LLC, and released under the same license.
 
 Terracotta Integration Module code is copyright Stadig Technologies, LLC.
 

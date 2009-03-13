@@ -38,5 +38,9 @@ public class ClojureTerracottaConfigurator extends TerracottaConfiguratorModule 
 		addClassReplacement(bundle, "clojure.lang.PersistentHashMap$BitmapIndexedNode", "clojure.lang.PersistentHashMapTC$BitmapIndexedNode");
 		addClassReplacement(bundle, "clojure.lang.PersistentTreeMap", "clojure.lang.PersistentTreeMapTC");
 		addClassReplacement(bundle, "clojure.lang.Util", "clojure.lang.UtilTC");
+		addClassReplacement(bundle, "clojure.lang.LazilyPersistentVector", "clojure.lang.LazilyPersistentVectorTC");
+		addClassReplacement(bundle, "clojure.lang.PersistentStructMap", "clojure.lang.PersistentStructMapTC");
+		addClassReplacement(bundle, "clojure.lang.PersistentStructMap$1", "clojure.lang.PersistentStructMapTC$1");
+		addClassReplacement(bundle, "clojure.lang.PersistentVector", "clojure.lang.PersistentVectorTC");
 	}
 }

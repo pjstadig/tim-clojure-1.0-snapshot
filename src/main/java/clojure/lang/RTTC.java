@@ -1620,7 +1620,9 @@ public class RTTC {
 	}
 
 	static public float[] aclone(float[] xs) {
-		return xs.clone();
+		float[] newArray = new float[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public double aget(double[] xs, int i) {
@@ -1637,7 +1639,9 @@ public class RTTC {
 	}
 
 	static public double[] aclone(double[] xs) {
-		return xs.clone();
+		double[] newArray = new double[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public int aget(int[] xs, int i) {
@@ -1654,7 +1658,9 @@ public class RTTC {
 	}
 
 	static public int[] aclone(int[] xs) {
-		return xs.clone();
+		int[] newArray = new int[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public long aget(long[] xs, int i) {
@@ -1671,7 +1677,9 @@ public class RTTC {
 	}
 
 	static public long[] aclone(long[] xs) {
-		return xs.clone();
+		long[] newArray = new long[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public char aget(char[] xs, int i) {
@@ -1688,7 +1696,9 @@ public class RTTC {
 	}
 
 	static public char[] aclone(char[] xs) {
-		return xs.clone();
+		char[] newArray = new char[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public byte aget(byte[] xs, int i) {
@@ -1705,7 +1715,9 @@ public class RTTC {
 	}
 
 	static public byte[] aclone(byte[] xs) {
-		return xs.clone();
+		byte[] newArray = new byte[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public short aget(short[] xs, int i) {
@@ -1722,7 +1734,9 @@ public class RTTC {
 	}
 
 	static public short[] aclone(short[] xs) {
-		return xs.clone();
+		short[] newArray = new short[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public boolean aget(boolean[] xs, int i) {
@@ -1739,7 +1753,9 @@ public class RTTC {
 	}
 
 	static public boolean[] aclone(boolean[] xs) {
-		return xs.clone();
+		boolean[] newArray = new boolean[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public Object aget(Object[] xs, int i) {
@@ -1756,7 +1772,9 @@ public class RTTC {
 	}
 
 	static public Object[] aclone(Object[] xs) {
-		return xs.clone();
+		Object[] newArray = new Object[xs.length];
+		System.arraycopy(xs, 0, newArray, 0, xs.length);
+		return newArray;
 	}
 
 	static public Object aget(Object xs, int i) {
