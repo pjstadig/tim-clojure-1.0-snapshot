@@ -42,5 +42,7 @@ public class ClojureTerracottaConfigurator extends TerracottaConfiguratorModule 
 		addClassReplacement(bundle, "clojure.lang.PersistentStructMap", "clojure.lang.PersistentStructMapTC");
 		addClassReplacement(bundle, "clojure.lang.PersistentStructMap$1", "clojure.lang.PersistentStructMapTC$1");
 		addClassReplacement(bundle, "clojure.lang.PersistentVector", "clojure.lang.PersistentVectorTC");
+		addClassReplacement(bundle, "clojure.lang.Agent", "clojure.lang.AgentTC");
+		addClassReplacement(bundle, "clojure.lang.Agent$Action", "clojure.lang.AgentTC$Action");
 	}
 }
