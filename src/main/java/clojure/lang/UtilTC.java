@@ -81,5 +81,4 @@ public class UtilTC {
 		return x instanceof Integer || x instanceof Long
 				|| x instanceof BigInteger;
 	}
-
 }
