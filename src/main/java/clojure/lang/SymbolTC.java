@@ -21,7 +21,7 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 
 	final String name;
 
-	// final int hash;
+	final int hash;
 
 	public String toString() {
 		if (ns != null)
@@ -59,9 +59,9 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 	}
 
 	private SymbolTC(String ns_interned, String name_interned) {
-		this.name = name_interned;
-		this.ns = ns_interned;
-		// this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
+		this.name = name_interned.intern();
+		this.ns = ns_interned == null ? null : ns_interned.intern();
+		this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
 	}
 
 	public boolean equals(Object o) {
@@ -73,27 +73,11 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 		Symbol symbol = (Symbol) o;
 
 		// identity compares intended, names are interned
-		if (name == symbol.name && ns == symbol.ns)
-			return true;
-
-		if ((name != null && symbol.name != null && name.intern() != symbol.name
-				.intern())
-				|| (ns != null && symbol.name != null && ns.intern() != symbol.ns
-						.intern()))
-			return false;
-
-		return true;
+		return name == symbol.name && ns == symbol.ns;
 	}
 
 	public int hashCode() {
-		String theNs = null;
-		if (ns != null)
-			theNs = ns.intern();
-		String theName = null;
-		if (name != null)
-			theName = name.intern();
-
-		return Util.hashCombine(Util.hash(theName), Util.hash(theNs));
+		return hash;
 	}
 
 	public Obj withMeta(IPersistentMap meta) {
@@ -102,9 +86,9 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 
 	private SymbolTC(IPersistentMap meta, String ns, String name) {
 		super(meta);
-		this.name = name;
-		this.ns = ns;
-		// this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
+		this.name = name.intern();
+		this.ns = ns == null ? null : ns.intern();
+		this.hash = Util.hashCombine(name.hashCode(), Util.hash(ns));
 	}
 
 	public int compareTo(Object o) {
@@ -134,5 +118,4 @@ public class SymbolTC extends AFn implements Comparable, Named, Serializable {
 	public Object invoke(Object obj, Object notFound) throws Exception {
 		return RT.get(obj, this, notFound);
 	}
-
 }
