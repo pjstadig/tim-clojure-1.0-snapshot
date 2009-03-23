@@ -24,7 +24,7 @@ final public class AtomTC extends ARef {
 		this.state = state;
 	}
 
-	public Object deref() {
+	public synchronized Object deref() {
 		return state;
 	}
 

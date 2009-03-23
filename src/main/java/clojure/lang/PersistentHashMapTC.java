@@ -268,7 +268,8 @@ public class PersistentHashMapTC extends APersistentMap {
 					return new BitmapIndexedNode(~bitpos(hash, shift),
 							newnodes, shift);
 				}
-				PersistentHashMap.INode[] newnodes = nodes.clone();
+				PersistentHashMap.INode[] newnodes = new PersistentHashMap.INode[nodes.length];
+				System.arraycopy(nodes, 0, newnodes, 0, nodes.length);
 				newnodes[idx] = n;
 				return new FullNode(newnodes, shift);
 			}
@@ -382,7 +383,8 @@ public class PersistentHashMapTC extends APersistentMap {
 						return new BitmapIndexedNode(bitmap & ~bit, newnodes,
 								shift);
 					}
-					PersistentHashMap.INode[] newnodes = nodes.clone();
+					PersistentHashMap.INode[] newnodes = new PersistentHashMap.INode[nodes.length];
+					System.arraycopy(nodes, 0, newnodes, 0, nodes.length);
 					newnodes[idx] = n;
 					return new BitmapIndexedNode(bitmap, newnodes, shift);
 				}

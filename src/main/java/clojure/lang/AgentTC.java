@@ -16,6 +16,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AgentTC extends ARef {
+	volatile Object state;
+
+	IPersistentStack q = PersistentQueue.EMPTY;
+
+	volatile ISeq errors = null;
+
+	final public static ExecutorService pooledExecutor = Executors
+			.newFixedThreadPool(2 + Runtime.getRuntime().availableProcessors());
+
+	final public static ExecutorService soloExecutor = Executors
+			.newCachedThreadPool();
+
+	final transient static ThreadLocal<IPersistentVector> nested = new ThreadLocal<IPersistentVector>();
+
+	public static void shutdown() {
+		soloExecutor.shutdown();
+		pooledExecutor.shutdown();
+	}
+
 	static class Action implements Runnable {
 		final AgentTC agent;
 
@@ -79,25 +98,6 @@ public class AgentTC extends ARef {
 		public void run() {
 			doRun((Agent.Action) (Object) this);
 		}
-	}
-
-	volatile Object state;
-
-	IPersistentStack q = PersistentQueue.EMPTY;
-
-	volatile ISeq errors = null;
-
-	final public static ExecutorService pooledExecutor = Executors
-			.newFixedThreadPool(2 + Runtime.getRuntime().availableProcessors());
-
-	final public static ExecutorService soloExecutor = Executors
-			.newCachedThreadPool();
-
-	final transient static ThreadLocal<IPersistentVector> nested = new ThreadLocal<IPersistentVector>();
-
-	public static void shutdown() {
-		soloExecutor.shutdown();
-		pooledExecutor.shutdown();
 	}
 
 	public AgentTC(Object state) throws Exception {

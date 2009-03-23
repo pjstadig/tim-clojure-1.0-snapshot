@@ -21,12 +21,6 @@ public class NamespaceTC extends AReference {
 
 	IPersistentMap aliases;
 
-	final static Symbol IN_SYM = Symbol.create("*in*");
-
-	final static Symbol OUT_SYM = Symbol.create("*out*");
-
-	final static Symbol ERR_SYM = Symbol.create("*err*");
-
 	final static ConcurrentHashMap<Symbol, Namespace> namespaces = new ConcurrentHashMap<Symbol, Namespace>();
 
 	public String toString() {
@@ -59,14 +53,16 @@ public class NamespaceTC extends AReference {
 		}
 		IPersistentMap map = getMappings();
 		Object o;
-		Object v = null;
-		while ((o = map.valAt(sym)) == null) {
+		Var v = null;
+		if ((o = map.valAt(sym)) == null) {
 			if (v == null)
 				v = new Var((Namespace) (Object) this, sym);
 			IPersistentMap newMap = map.assoc(sym, v);
 			mappings = newMap;
 			map = getMappings();
+			o = map.valAt(sym);
 		}
+
 		if (o instanceof Var && ((Var) o).ns == (Namespace) (Object) this)
 			return (Var) o;
 
@@ -81,10 +77,11 @@ public class NamespaceTC extends AReference {
 		}
 		IPersistentMap map = getMappings();
 		Object o;
-		while ((o = map.valAt(sym)) == null) {
+		if ((o = map.valAt(sym)) == null) {
 			IPersistentMap newMap = map.assoc(sym, val);
 			mappings = newMap;
 			map = getMappings();
+			o = map.valAt(sym);
 		}
 		if (o == val)
 			return o;
@@ -99,7 +96,7 @@ public class NamespaceTC extends AReference {
 					"Can't unintern namespace-qualified symbol");
 		}
 		IPersistentMap map = getMappings();
-		while (map.containsKey(sym)) {
+		if (map.containsKey(sym)) {
 			IPersistentMap newMap = map.without(sym);
 			mappings = newMap;
 			map = getMappings();
@@ -159,7 +156,7 @@ public class NamespaceTC extends AReference {
 		if (alias == null || ns == null)
 			throw new NullPointerException("Expecting Symbol + Namespace");
 		IPersistentMap map = getAliases();
-		while (!map.containsKey(alias)) {
+		if (!map.containsKey(alias)) {
 			IPersistentMap newMap = map.assoc(alias, ns);
 			aliases = newMap;
 			map = getAliases();
@@ -173,7 +170,7 @@ public class NamespaceTC extends AReference {
 
 	public synchronized void removeAlias(Symbol alias) throws Exception {
 		IPersistentMap map = getAliases();
-		while (map.containsKey(alias)) {
+		if (map.containsKey(alias)) {
 			IPersistentMap newMap = map.without(alias);
 			aliases = newMap;
 			map = getAliases();

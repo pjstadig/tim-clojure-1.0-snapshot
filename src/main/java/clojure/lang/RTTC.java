@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.PushbackReader;
 import java.io.Reader;
@@ -453,86 +452,82 @@ public class RTTC {
 	}
 
 	static void doInit() throws Exception {
-		//synchronized (INITIALIZED) {
-			if (!INITIALIZED) {
-				Keyword dockw = Keyword.intern(null, "doc");
-				Keyword arglistskw = Keyword.intern(null, "arglists");
-				Symbol namesym = Symbol.create("name");
-				OUT.setTag(Symbol.create("java.io.Writer"));
-				CURRENT_NS.setTag(Symbol.create("clojure.lang.Namespace"));
-				AGENT
-						.setMeta(map(dockw,
-								"The agent currently running an action on this thread, else nil"));
-				AGENT.setTag(Symbol.create("clojure.lang.Agent"));
-				MATH_CONTEXT.setTag(Symbol.create("java.math.MathContext"));
-				// during bootstrap ns same as in-ns
-				Var nv = Var.intern(CLOJURE_NS, NAMESPACE, inNamespace);
-				nv.setMacro();
-				Var v;
-				v = Var.intern(CLOJURE_NS, IN_NAMESPACE, inNamespace);
-				v
-						.setMeta(map(
-								dockw,
-								"Sets *ns* to the namespace named by the symbol, creating it if needed.",
-								arglistskw, list(vector(namesym))));
-				v = Var.intern(CLOJURE_NS, LOAD_FILE, new AFn() {
-					public Object invoke(Object arg1) throws Exception {
-						return Compiler.loadFile((String) arg1);
-					}
-				});
-				v
-						.setMeta(map(
-								dockw,
-								"Sequentially read and evaluate the set of forms contained in the file.",
-								arglistskw, list(vector(namesym))));
-				v = Var.intern(CLOJURE_NS, IDENTICAL, new AFn() {
-					public Object invoke(Object arg1, Object arg2)
-							throws Exception {
-						if (utilSame(arg1, arg2))
-							return RT.T;
-						else
-							return RT.F;
-					}
-
-					private boolean utilSame(Object o1, Object o2) {
-						try {
-							return ((Boolean) Reflector
-									.invokeStaticMethod(Util.class, "same",
-											new Object[] { o1, o2 }))
-									.booleanValue();
-						} catch (Exception e) {
-							throw new RuntimeException(
-									"Could not invoke 'same' method of Util", e);
-						}
-					}
-				});
-				v.setMeta(map(dockw,
-						"Tests if 2 arguments are the same object", arglistskw,
-						list(vector(Symbol.create("x"), Symbol.create("y")))));
-
-				load("clojure/core");
-				load("clojure/zip", false);
-				load("clojure/xml", false);
-				load("clojure/set", false);
-
-				Var.pushThreadBindings(RT.map(CURRENT_NS, CURRENT_NS.deref(),
-						WARN_ON_REFLECTION, WARN_ON_REFLECTION.deref()));
-				try {
-					Symbol USER = Symbol.create("user");
-					Symbol CLOJURE = Symbol.create("clojure.core");
-
-					Var in_ns = var("clojure.core", "in-ns");
-					Var refer = var("clojure.core", "refer");
-					in_ns.invoke(USER);
-					refer.invoke(CLOJURE);
-					maybeLoadResourceScript("user.clj");
-				} finally {
-					Var.popThreadBindings();
+		if (!INITIALIZED) {
+			Keyword dockw = Keyword.intern(null, "doc");
+			Keyword arglistskw = Keyword.intern(null, "arglists");
+			Symbol namesym = Symbol.create("name");
+			OUT.setTag(Symbol.create("java.io.Writer"));
+			CURRENT_NS.setTag(Symbol.create("clojure.lang.Namespace"));
+			AGENT
+					.setMeta(map(dockw,
+							"The agent currently running an action on this thread, else nil"));
+			AGENT.setTag(Symbol.create("clojure.lang.Agent"));
+			MATH_CONTEXT.setTag(Symbol.create("java.math.MathContext"));
+			// during bootstrap ns same as in-ns
+			Var nv = Var.intern(CLOJURE_NS, NAMESPACE, inNamespace);
+			nv.setMacro();
+			Var v;
+			v = Var.intern(CLOJURE_NS, IN_NAMESPACE, inNamespace);
+			v
+					.setMeta(map(
+							dockw,
+							"Sets *ns* to the namespace named by the symbol, creating it if needed.",
+							arglistskw, list(vector(namesym))));
+			v = Var.intern(CLOJURE_NS, LOAD_FILE, new AFn() {
+				public Object invoke(Object arg1) throws Exception {
+					return Compiler.loadFile((String) arg1);
 				}
-				
-				INITIALIZED = true;
+			});
+			v
+					.setMeta(map(
+							dockw,
+							"Sequentially read and evaluate the set of forms contained in the file.",
+							arglistskw, list(vector(namesym))));
+			v = Var.intern(CLOJURE_NS, IDENTICAL, new AFn() {
+				public Object invoke(Object arg1, Object arg2) throws Exception {
+					if (utilSame(arg1, arg2))
+						return RT.T;
+					else
+						return RT.F;
+				}
+
+				private boolean utilSame(Object o1, Object o2) {
+					try {
+						return ((Boolean) Reflector.invokeStaticMethod(
+								Util.class, "same", new Object[] { o1, o2 }))
+								.booleanValue();
+					} catch (Exception e) {
+						throw new RuntimeException(
+								"Could not invoke 'same' method of Util", e);
+					}
+				}
+			});
+			v.setMeta(map(dockw, "Tests if 2 arguments are the same object",
+					arglistskw, list(vector(Symbol.create("x"), Symbol
+							.create("y")))));
+
+			load("clojure/core");
+			load("clojure/zip", false);
+			load("clojure/xml", false);
+			load("clojure/set", false);
+
+			Var.pushThreadBindings(RT.map(CURRENT_NS, CURRENT_NS.deref(),
+					WARN_ON_REFLECTION, WARN_ON_REFLECTION.deref()));
+			try {
+				Symbol USER = Symbol.create("user");
+				Symbol CLOJURE = Symbol.create("clojure.core");
+
+				Var in_ns = var("clojure.core", "in-ns");
+				Var refer = var("clojure.core", "refer");
+				in_ns.invoke(USER);
+				refer.invoke(CLOJURE);
+				maybeLoadResourceScript("user.clj");
+			} finally {
+				Var.popThreadBindings();
 			}
-		//}
+
+			INITIALIZED = true;
+		}
 	}
 
 	static public int nextID() {
