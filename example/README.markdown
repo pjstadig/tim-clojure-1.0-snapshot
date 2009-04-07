@@ -18,9 +18,11 @@ How to run this example
 2. Define three environment variables: JAVA_HOME, TC_HOME, and CLOJURE_EXT.  JAVA_HOME should be the directory in which you installed the JDK.  TC_HOME should be the directory in which you installed Terracotta.  CLOJURE_EXT should be the directory in which you have any Clojure code you'd like to be added to the classpath.  For simplicity, I have just linked my clojure-slim.jar into my CLOJURE_EXT directory.  If you don't want to do that, then you can also define a CLASSPATH envorinment variable that includes your clojure-slim.jar.
    (**\*\*IMPORTANT NOTE\*\* You must use clojure-slim.jar.  This TIM makes compiler changes, and the full clojure.jar includes precompiled versions of core.clj, main.clj, etc.  You need to let the TIM compile those files for you.**)
 
-3. Start the Terracotta server.  From this directory type `mvn tc:start`.  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type `mvn tc:admin` from this directory.
+3. You need to install the Clojure Terracotta Integration Module.  To do this you need to go to the parent of this example directory (should be something like tim-clojure-1.0-snapshot), and run the `mvn install` command.  This will install the TIM into your local maven repository, and make it available to the Terracotta server.
 
-4. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type `./bin/dso-clojure @tc-repl.clj`.  If you'd like to run it with a debugger, then type `./bin/dso-clojure-debug @tc-repl.clj`.  You can then connect a Java debugger (JSwat has worked for me) to localhost:8888.
+4. Start the Terracotta server.  From this directory type `mvn tc:start`.  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type `mvn tc:admin` from this directory.
+
+5. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type `./bin/dso-clojure @tc-repl.clj`.  If you'd like to run it with a debugger, then type `./bin/dso-clojure-debug @tc-repl.clj`.  You can then connect a Java debugger (JSwat has worked for me) to localhost:8888.
 
 Once in the REPL, you can do anything you would normally do in a Clojure REPL.  Here is a transcript of a session:
 
