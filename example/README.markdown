@@ -1,14 +1,3 @@
-This is an example of using Terracotta Integration Module for the Clojure language.  The TIM for Clojure is currently in an alpha state, so should be used at your own risk.
-
-This is the "shared everything" example of using Clojure with Terracotta.  The goal is to have multiple VMs working together in the same shared, global context through Terracotta.  This means that everything in the Clojure environment should be shared by default.  I have worked out the class replacement for a TIM, and I have created a few replacement classes so that Clojure will play nicely with Terracotta.  There are still some issues:
-
-1. A roadblock at the moment is the root bindings for \*in\*, \*out\* and \*err\*.  They cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually (hence the "tc-repl.clj" file).
-
-2. Agents and Atoms are not yet supported.  They still use some non-portable classes (from Terracotta's perspective) that need to be removed.
-
-3. Probably lots of other stuff.
-
-
 How to run this example
 =======================
 (NOTE: The following instructions have only been tested on Linux.  The scripts are bash scripts, so Windows is out.  This is nothing personal, I just don't use Windows.)
@@ -20,7 +9,7 @@ How to run this example
 
 3. You need to install the Clojure Terracotta Integration Module.  To do this you need to go to the parent of this example directory (should be something like tim-clojure-1.0-snapshot), and run the `mvn install` command.  This will install the TIM into your local maven repository, and make it available to the Terracotta server.
 
-4. Start the Terracotta server.  From this directory type `mvn tc:start`.  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type `mvn tc:admin` from this directory.
+4. Start the Terracotta server.  Back in this directory, run the `mvn tc:start` command.  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type `mvn tc:admin` from this directory.
 
 5. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type `./bin/dso-clojure @tc-repl.clj`.  If you'd like to run it with a debugger, then type `./bin/dso-clojure-debug @tc-repl.clj`.  You can then connect a Java debugger (JSwat has worked for me) to localhost:8888.
 
@@ -80,9 +69,9 @@ JVM #2
     42
     user=>
 
-This is alpha state, so there are certainly some cases that will fail.
+This is beta state, so there are some cases that may fail.
 
-For more details about the problems, possible solutions, and to keep track of progress, check out my blog [http://paul.stadig.name/](http://paul.stadig.name/).
+To keep track of my progress integrating Clojure and Terracotta, check out my blog [http://paul.stadig.name/](http://paul.stadig.name/).
 
 Clojure code is copyright Rich Hickey.
 
