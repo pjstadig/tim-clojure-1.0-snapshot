@@ -71,6 +71,57 @@ JVM #2
 
 This is beta state, so there are some cases that may fail.
 
+One final note, for any namespace that you define in Clojure, you must include an instrumentation configuration in the tc-config.xml file.  If you do not include the configuration, then you will receive an error message like the following:
+
+    com.tc.exception.TCNonPortableObjectError:
+    *******************************************************************************
+    Attempt to set the field of a shared object to an instance of a non-portable class. This
+    unshareable class has not been included for sharing in the configuration.
+
+    For more information on this issue, please visit our Troubleshooting Guide at:
+    http://terracotta.org/kit/troubleshooting
+
+    Thread                 : main
+    JVM ID                 : VM(0)
+    Non-portable field name: clojure.lang.Var.root
+    Non-included class     : user$foo__3202
+
+    Under most circumstances, you should only be adding classes for your
+    application. If you are adding classes for frameworks or code not written by
+    you, then you should consider finding a Terracotta Integration Module (TIM)
+    that matches the framework you are using.
+
+    As an example, if the non-portable class listed below is
+    net.sf.ehcache.CacheManager, you should consider using the ehcache TIM.
+
+    It is also possible that some or all of the classes above are truly
+    non-portable, the solution is then to mark the referring field as transient.
+    For more information on non-portable classes see the Troubleshooting Guide.
+
+    Action to take:
+
+    1) Reconfigure to include the unshareable classes
+       * edit your tc-config.xml file
+       * locate the <dso> element
+       * add this snippet inside the <dso> element
+
+           <instrumented-classes>
+             <include>
+               <class-expression>user$foo__3202</class-expression>
+             </include>
+           </instrumented-classes>
+
+       * if there is already an <instrumented-classes> element present, simply add
+         the new includes inside it
+
+    *******************************************************************************
+
+You can look at how the user namespace is defined for an example, but generally for some.namespace you would add a configuration like so:
+
+    <include>
+      <class-expression>some.namespace..*</class-expression>
+    </include>
+
 To keep track of my progress integrating Clojure and Terracotta, check out my blog [http://paul.stadig.name/](http://paul.stadig.name/).
 
 Clojure code is copyright Rich Hickey.

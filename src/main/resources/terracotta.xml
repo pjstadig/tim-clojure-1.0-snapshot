@@ -158,8 +158,5 @@
     <include>
       <class-expression>clojure..*</class-expression>
     </include>
-    <include>
-      <class-expression>user..*</class-expression>
-    </include>
   </instrumented-classes>
 </xml-fragment>

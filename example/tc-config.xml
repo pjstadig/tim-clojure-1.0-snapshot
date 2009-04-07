@@ -23,7 +23,7 @@
   <system>
     <configuration-model>development</configuration-model>
   </system>
-  
+
   <!--Tell DSO where to put the generated client logs
   See the Terracotta Configuration Guide and Reference for additional
   information.-->
@@ -52,4 +52,14 @@
     </modules>
     <logs>%(user.home)/terracotta/client-logs/org.terracotta.modules.sample/%D</logs>
   </clients>
+
+  <application>
+    <dso>
+      <instrumented-classes>
+        <include>
+          <class-expression>user..*</class-expression>
+        </include>
+      </instrumented-classes>
+    </dso>
+  </application>
 </tc:tc-config>

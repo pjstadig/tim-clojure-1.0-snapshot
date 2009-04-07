@@ -4,7 +4,9 @@ The goal is to have multiple VMs working together in the same shared, global con
 
 Does it work?
 =============
-I have done limited testing with all of the important features of Clojure including agents, atoms, refs, transactions, def'ing vars and functions, etc.  I have also run the clojure.contrib.test-clojure suite successfully.  None of these tests are exhaustive, so there may still be some unexplored corners.  According to my testing, everything is functional in a shared context, but there is still one outstanding issue and a workaround. At the moment is the root bindings for \*in\*, \*out\* and \*err\* cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually in a custom REPL (hence the "tc-repl.clj" file).
+I have done limited testing with all of the important features of Clojure including agents, atoms, refs, transactions, def'ing vars and functions, etc.  I have also run the clojure.contrib.test-clojure suite successfully.  None of these tests are exhaustive, so there may still be some unexplored corners.
+
+According to my testing, everything is functional in a shared context, but there is still one outstanding issue and a workaround. At the moment is the root bindings for \*in\*, \*out\* and \*err\* cannot be shared, but there is no way to mark the root binding (just for those Vars) as transient.  The workaround for the moment is to just leave the root bindings nil and bind the values manually in a custom REPL (hence the "tc-repl.clj" file in the example application).
 
 What is left do to?
 ===================
