@@ -1,4 +1,4 @@
-This is a Terracotta Integration Module (TIM) for the Clojure language.  The TIM for Clojure is currently in an beta state (meaning fully functional, but may still have bugs). As such, it may not be suitable for production applications.  I welcome any feedback and experience you have running this example, or using the TIM.
+This is a Terracotta Integration Module (TIM) for the Clojure language.  The TIM for Clojure is currently in an beta state (meaning fully functional, but may still have bugs). As such, it may not be suitable for production applications.  I welcome any feedback and experience you have running this example, or using the TIM.  You can contact me at [mailto:paul@stadig.name](paul@stadig.name).
 
 The goal is to have multiple VMs working together in the same shared, global context through Terracotta.  This means that everything in the Clojure environment should be shared by default.  In order to get this to function properly I am using class replacement to insert Terracotta compatible versions of some Clojure classes.  This includes a change to the Clojure compiler, so you must use the clojure-slim.jar (see notes with the example).
 
