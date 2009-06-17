@@ -10,7 +10,7 @@
 -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
   <properties>
-     <tc-maven-plugin.version>1.2.3</tc-maven-plugin.version>
+     <tc-maven-plugin.version>1.3.1</tc-maven-plugin.version>
   </properties>
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -65,14 +65,13 @@
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
-      <artifactId>clojure-lang</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <classifier>slim</classifier>
+      <artifactId>clojure</artifactId>
+      <version>1.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.terracotta</groupId>
       <artifactId>terracotta</artifactId>
-      <version>2.7.3</version>
+      <version>3.0.1</version>
     </dependency>
     <dependency>
       <groupId>stadigtech.terracotta.modules</groupId>
