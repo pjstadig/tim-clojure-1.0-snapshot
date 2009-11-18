@@ -9,7 +9,7 @@ How to run this example
 
 3. You need to install the Clojure Terracotta Integration Module.  To do this you need to go to the parent of this example directory (should be something like tim-clojure-1.0-snapshot), and run the `mvn install` command.  This will install the TIM into your local maven repository, and make it available to the Terracotta server.
 
-4. Start the Terracotta server.  Back in this directory, run the `mvn tc:start` command.  You may also want to start the Terracotta administration application, so you can see what objects are being added to the cache.  Type `mvn tc:admin` from this directory.
+4. Start the Terracotta server.  Back in this directory, run the `mvn tc:start` command.  You may also want to start the Terracotta Development Console, so you can see what objects are being added to the cache.  Type `mvn tc:dev-console` from this directory.
 
 5. Start the clojure REPL with the Terracotta instrumentation.  From the this directory, type `./bin/dso-clojure @tc-repl.clj`.  If you'd like to run it with a debugger, then type `./bin/dso-clojure-debug @tc-repl.clj`.  You can then connect a Java debugger (JSwat has worked for me) to localhost:8888.
 
